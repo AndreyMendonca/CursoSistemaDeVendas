@@ -1,4 +1,5 @@
 "use client";
+import { converterEmBigDecimal } from "@/app/utils/money";
 import { Input } from "@/components/input";
 import { Layout } from "@/components/layout/layout";
 import { useProdutoService } from "@/services/produto";
@@ -17,7 +18,7 @@ const CadastroProduto = () => {
     const submit = async () => {
         const produto: Produto = {
             sku,
-            preco: parseFloat(preco),
+            preco: converterEmBigDecimal(preco),
             nome,
             descricao
         }
@@ -46,7 +47,7 @@ const CadastroProduto = () => {
 
                 <div className="grid grid-cols-2 gap-5">
                     <Input id="sku" nome="SKU *" set={setSku} value={sku} placeholder="Digite o SKU" />
-                    <Input id="preco" nome="Preço *" set={setPreco} value={preco} placeholder="Digite o preço" />
+                    <Input id="preco" nome="Preço *" set={setPreco} value={preco} placeholder="Digite o preço" current={true}/>
                 </div>
 
                 <Input id="nome" nome="Nome *" set={setNome} value={nome} placeholder="Digite o nome do produto" />
