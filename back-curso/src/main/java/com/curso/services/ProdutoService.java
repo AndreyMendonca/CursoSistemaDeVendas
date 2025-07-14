@@ -20,4 +20,15 @@ public class ProdutoService {
 	public List<Produto> findAll() {
 		return repository.findAll();
 	}
+
+	public Produto findById(Long id) {
+		return repository.findById(id).orElseThrow(()-> new RuntimeException());
+	}
+	
+	public void update(Long id, Produto produto) {
+		Produto produtoExistente = this.findById(id);
+		produto.setId(produtoExistente.getId());
+		produto.setDataCadastro(produtoExistente.getDataCadastro());
+		repository.save(produto);
+	}
 }

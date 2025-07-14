@@ -4,4 +4,5 @@ export type Produto = {
     preco?: number;
     nome?: string;
     descricao?: string;
+    dataCadastro?: string;
 };

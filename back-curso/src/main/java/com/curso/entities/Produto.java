@@ -1,12 +1,16 @@
 package com.curso.entities;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +27,19 @@ public class Produto {
 	private BigDecimal preco;
 	@Column(length = 20)
 	private String sku;
+	@Column
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataCadastro;
 	
 	public Produto() {}
+	
+	public Produto(String nome, String descricao, BigDecimal preco, String sku) {
+		super();
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.sku = sku;
+	}
 
 	public Produto(Long id, String nome, String descricao, BigDecimal preco, String sku) {
 		super();
@@ -34,7 +49,22 @@ public class Produto {
 		this.preco = preco;
 		this.sku = sku;
 	}
+	
+	public Produto(Long id, String nome, String descricao, BigDecimal preco, String sku, LocalDate dataCadastro) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+		this.sku = sku;
+		this.dataCadastro = dataCadastro;
+	}
 
+	@PrePersist
+	public void prePersist() {
+		setDataCadastro(LocalDate.now());
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -74,6 +104,15 @@ public class Produto {
 	public void setSku(String sku) {
 		this.sku = sku;
 	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
 	
 	
 }

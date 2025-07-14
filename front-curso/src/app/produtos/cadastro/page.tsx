@@ -1,24 +1,51 @@
 "use client";
 import { Input } from "@/components/input";
 import { Layout } from "@/components/layout/layout";
+import { useProdutoService } from "@/services/produto";
+import { Produto } from "@/types/produto";
 import { useState } from "react";
 
 const CadastroProduto = () => {
+    const service = useProdutoService
     const [sku, setSku] = useState('');
     const [preco, setPreco] = useState('');
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
+    const [id, setId] = useState<number | undefined>(undefined);
+    const [dataCadastro, setDataCadastro] = useState<string | undefined>('');
 
-    const salvar = () => {
-        // Implementar a lógica de salvar o produto
-        console.log({ sku, preco, nome, descricao });
+    const submit = async () => {
+        const produto: Produto = {
+            sku,
+            preco: parseFloat(preco),
+            nome,
+            descricao
+        }
+        id
+            ?
+                await service.atualizar(id!, produto)
+            :
+                await service.salvar(produto)
+                    .then(response => {
+                        console.log('Produto salvo com sucesso:', response);
+                        setId(response.id);
+                        setDataCadastro(response.dataCadastro);
+                    })
     };
 
     return (
         <Layout titulo="Cadastro de Produtos">
             <div className="flex flex-col gap-6">
+                {
+                    id &&
+                    <div className="grid grid-cols-2 gap-5">
+                        <Input id="id" nome="ID" value={id} disabled={true} />
+                        <Input id="criacao" nome="Data Cadastro" value={dataCadastro} disabled={true} />
+                    </div>
+                }
+
                 <div className="grid grid-cols-2 gap-5">
-                    <Input id="sku" nome="SKU *" set={setSku}  value={sku} placeholder="Digite o SKU"  />
+                    <Input id="sku" nome="SKU *" set={setSku} value={sku} placeholder="Digite o SKU" />
                     <Input id="preco" nome="Preço *" set={setPreco} value={preco} placeholder="Digite o preço" />
                 </div>
 
@@ -36,7 +63,9 @@ const CadastroProduto = () => {
                     />
                 </div>
                 <div className="flex gap-5">
-                    <button onClick={salvar} className="py-3 px-4 border rounded-md cursor-pointer">Salvar</button>
+                    <button onClick={submit} className="py-3 px-4 border rounded-md cursor-pointer">
+                        {id ? 'Atualizar' : 'Salvar'}
+                    </button>
                     <button className="py-3 px-4 border rounded-md cursor-pointer">Voltar</button>
                 </div>
             </div>

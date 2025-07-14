@@ -3,9 +3,12 @@ import { api } from "./axios";
 import { AxiosResponse } from "axios";
 
 const URL: string = '/produtos';
-export const useProdutoService  = () => {
-    const salvar = async (produto:Produto): Promise<Produto> =>{
+export const useProdutoService = {
+    salvar: async (produto:Produto): Promise<Produto> =>{
         const response:AxiosResponse<Produto> = await api.post(URL, produto);
         return response.data;
+    },
+    atualizar: async (id: number, produto:Produto): Promise<void> =>{
+        const response:AxiosResponse<Produto> = await api.put(URL+`/${id}`, produto);
     }
 }

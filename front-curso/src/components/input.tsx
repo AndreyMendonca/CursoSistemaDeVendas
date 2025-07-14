@@ -13,7 +13,7 @@ export const Input = ({nome, id, set, ...rest}: Props) => {
                 type="text"
                 id={id}
                 onChange={(e) => set && set(e.target.value)}
-                className="border border-gray-300 p-2 rounded-md"
+                className={`border border-gray-300 p-2 rounded-md ${rest.disabled ? 'bg-gray-100 text-gray-500 cursor-not-allowed' : 'bg-white'}`}
                 {...rest}
             />
         </div>
