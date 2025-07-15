@@ -1,5 +1,6 @@
 "use client";
 import { converterEmBigDecimal } from "@/app/utils/money";
+import { Alert } from "@/components/message";
 import { Input } from "@/components/input";
 import { Layout } from "@/components/layout/layout";
 import { useProdutoService } from "@/services/produto";
@@ -14,6 +15,7 @@ const CadastroProduto = () => {
     const [descricao, setDescricao] = useState('');
     const [id, setId] = useState<number | undefined>(undefined);
     const [dataCadastro, setDataCadastro] = useState<string | undefined>('');
+    const [mensagens, setMensagens] = useState<Array<Alert>>([]);
 
     const submit = async () => {
         const produto: Produto = {
@@ -25,17 +27,18 @@ const CadastroProduto = () => {
         id
             ?
                 await service.atualizar(id!, produto)
+                    .then(() => setMensagens([{ texto: 'Produto atualizado com sucesso!', tipo: 'success' }]))
             :
                 await service.salvar(produto)
                     .then(response => {
-                        console.log('Produto salvo com sucesso:', response);
+                        setMensagens([{ texto: 'Produto salvo com sucesso!', tipo: 'success' }]);
                         setId(response.id);
                         setDataCadastro(response.dataCadastro);
                     })
     };
 
     return (
-        <Layout titulo="Cadastro de Produtos">
+        <Layout titulo="Cadastro de Produtos" mensagens={mensagens}>
             <div className="flex flex-col gap-6">
                 {
                     id &&

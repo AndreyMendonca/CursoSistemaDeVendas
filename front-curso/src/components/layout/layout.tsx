@@ -1,11 +1,13 @@
+import { Alert, Message } from "../message";
 import { LayoutMenu } from "./menu"
 
 type Props = {
     children?: React.ReactNode;
     titulo: string;
+    mensagens?: Array<Alert>
 }
 
-export const Layout = ({children, titulo}:Props) => {
+export const Layout = ({children, titulo, mensagens}:Props) => {
     return (
         <section className="flex bg-gray-100">
             <div className="h-screen min-w-60 p-5 flex items-center justify-center">
@@ -16,6 +18,9 @@ export const Layout = ({children, titulo}:Props) => {
                     <p className="text-xl font-bold text-gray-600">{titulo}</p>
                 </div>
                 <div className="bg-white flex-1 p-5 rounded-sm ">
+                    {
+                        mensagens && mensagens.map( msg => <Message key={msg.texto} texto={msg.texto} tipo={msg.tipo} />)
+                    }
                     {children}
                 </div>
             </div>
