@@ -13,9 +13,9 @@ export const LayoutMenu = () => {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/produtos/cadastro" className="flex gap-2 p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-neutral-200 transition-colors">
+                    <Link href="/produtos" className="flex gap-2 p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-neutral-200 transition-colors">
                         <PackagePlus />
-                        <p>Cadastros</p>
+                        <p>Produtos</p>
                     </Link>
                 </li>
             </ul>

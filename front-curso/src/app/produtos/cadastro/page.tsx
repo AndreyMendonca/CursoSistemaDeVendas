@@ -7,6 +7,7 @@ import { useProdutoService } from "@/services/produto";
 import { Produto } from "@/types/produto";
 import { useState } from "react";
 import * as yup from 'yup'
+import Link from "next/link";
 
 const validationSchema = yup.object().shape({
     sku: yup.string().trim().required("Campo é Obrigatório"),
@@ -98,14 +99,16 @@ const CadastroProduto = () => {
                     />
                     {
                         errors.descricao &&
-                            <p className="text-sm text-red-500">{errors.descricao}</p>
+                        <p className="text-sm text-red-500">{errors.descricao}</p>
                     }
                 </div>
                 <div className="flex gap-5">
-                    <button onClick={submit} className="py-3 px-4 border rounded-md cursor-pointer">
+                    <button onClick={submit} className="py-3 px-4 rounded-md cursor-pointer bg-green-500 hover:bg-green-400">
                         {id ? 'Atualizar' : 'Salvar'}
                     </button>
-                    <button className="py-3 px-4 border rounded-md cursor-pointer">Voltar</button>
+                    <Link href="/produtos">
+                        <button className="py-3 px-4 rounded-md cursor-pointer bg-yellow-300 hover:bg-yellow-200">Voltar</button>
+                    </Link>
                 </div>
             </div>
         </Layout>
