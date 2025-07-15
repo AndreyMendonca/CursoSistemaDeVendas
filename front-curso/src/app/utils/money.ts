@@ -1,7 +1,7 @@
 // Converte string no formato "1.234,56" para número (ex: 1234.56)
-export const converterEmBigDecimal = (value: string | null | undefined): number => {
-    if (!value || typeof value !== 'string') {
-        return 0;
+export const converterEmBigDecimal = (value: string | null | undefined): number | string => {
+    if ((!value || typeof value !== 'string') ) {
+        return '';
     }
 
     // Remove os pontos (separadores de milhar) e troca vírgula decimal por ponto
