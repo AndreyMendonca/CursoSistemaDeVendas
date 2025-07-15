@@ -24,7 +24,7 @@ interface FormError {
 }
 
 const CadastroProduto = () => {
-    const service = useProdutoService
+    const service = useProdutoService;
     const [sku, setSku] = useState('');
     const [preco, setPreco] = useState('');
     const [nome, setNome] = useState('');

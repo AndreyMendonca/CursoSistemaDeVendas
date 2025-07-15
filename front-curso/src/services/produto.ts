@@ -10,5 +10,9 @@ export const useProdutoService = {
     },
     atualizar: async (id: number, produto:Produto): Promise<void> =>{
         const response:AxiosResponse<Produto> = await api.put(URL+`/${id}`, produto);
+    },
+    buscarTodos:  async () : Promise<Produto[]> =>{
+        const response:AxiosResponse<Produto[]> = await api.get(URL);
+        return response.data;
     }
 }
