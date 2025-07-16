@@ -31,4 +31,9 @@ public class ProdutoService {
 		produto.setDataCadastro(produtoExistente.getDataCadastro());
 		repository.save(produto);
 	}
+	
+	public void delete(Long id) {
+		this.findById(id);
+		repository.deleteById(id);
+	}
 }
