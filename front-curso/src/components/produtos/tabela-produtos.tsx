@@ -1,3 +1,4 @@
+import { formatReal } from "@/app/utils/money";
 import { Produto } from "@/types/produto"
 import { Pencil, Trash } from "lucide-react";
 
@@ -26,7 +27,7 @@ export const TabelaProdutos = ({ produtos, onEdit, onDelete }: Props) => {
                             <td className="px-4 py-2">{p.id}</td>
                             <td className="px-4 py-2">{p.sku}</td>
                             <td className="px-4 py-2">{p.nome}</td>
-                            <td className="px-4 py-2">{p.preco}</td>
+                            <td className="px-4 py-2">R$ {formatReal(p.preco)}</td>
                             <td className="px-4 py-2  flex gap-4 justify-center">
                                 <button onClick={() => onEdit(p)} className="rounded-full p-2 bg-yellow-300 cursor-pointer"><Pencil className="size-4"/></button>
                                 <button onClick={() => onDelete(p)} className="rounded-full p-2 bg-red-500 cursor-pointer"><Trash className="size-4 text-white"/></button>

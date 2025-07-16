@@ -1,6 +1,6 @@
 // Converte string no formato "1.234,56" para número (ex: 1234.56)
 export const converterEmBigDecimal = (value: string | null | undefined): number | string => {
-    if ((!value || typeof value !== 'string') ) {
+    if ((!value || typeof value !== 'string')) {
         return '';
     }
 
@@ -12,17 +12,21 @@ export const converterEmBigDecimal = (value: string | null | undefined): number 
 };
 
 // Formata número em formato brasileiro "1.234,56"
-export const formatReal = ( valor: any ) => {
-    const v = ((valor.replace(/\D/g, '') / 100).toFixed(2) + '').split('.');
+export const formatReal = (valor: string | number) => {
+    // Se já for número, formata com Intl
+    if (typeof valor === 'number') {
+        return valor.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+    }
 
-    const m = v[0].split('').reverse().join('').match(/.{1,3}/g);
+    // Se for string (ex: vindo de input), limpa os dígitos e aplica lógica
+    const clean = valor.replace(/\D/g, '');
+    const number = Number(clean) / 100;
 
-    if (!m) return '';
-    
-    for (let i = 0; i < m.length; i++)
-        m[i] = m[i].split('').reverse().join('') + '.';
-
-    const r = m.reverse().join('');
-
-    return r.substring(0, r.lastIndexOf('.')) + ',' + v[1];
-}
+    return number.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+    });
+};

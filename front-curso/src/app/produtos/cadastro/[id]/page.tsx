@@ -1,14 +1,13 @@
 "use client";
-import { converterEmBigDecimal } from "@/app/utils/money";
+import { converterEmBigDecimal, formatReal } from "@/app/utils/money";
 import { Alert } from "@/components/message";
 import { Input } from "@/components/input";
 import { Layout } from "@/components/layout/layout";
 import { useProdutoService } from "@/services/produto";
 import { Produto } from "@/types/produto";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as yup from 'yup'
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useParams } from "next/navigation";
 
 const validationSchema = yup.object().shape({
@@ -27,21 +26,37 @@ interface FormError {
 
 const CadastroProduto = () => {
     const params = useParams();
-    const queryId  = params?.id;
+    const queryId = params.id as string;
     const service = useProdutoService;
     const [sku, setSku] = useState('');
-    const [preco, setPreco] = useState('');
+    const [preco, setPreco] = useState<string>();
     const [nome, setNome] = useState('');
     const [descricao, setDescricao] = useState('');
     const [id, setId] = useState<number | undefined>(undefined);
     const [dataCadastro, setDataCadastro] = useState<string | undefined>('');
     const [mensagens, setMensagens] = useState<Array<Alert>>([]);
     const [errors, setErrors] = useState<FormError>({});
-    
+
+    const buscar = async () => {
+        if (queryId !== '0') {
+            service.buscarPorId(queryId)
+                .then(response => {
+                    setSku(response.sku);
+                    setPreco(formatReal(response.preco));
+                    setDescricao(response.descricao);
+                    setNome(response.nome);
+                    setDataCadastro(response.dataCadastro);
+                    setId(response.id as number);
+                })
+                .catch(() =>setMensagens([{ texto: 'Erro ao localizar produto', tipo: 'error' }]))
+        }
+    }
+
+
     const submit = async () => {
         const produto: Produto = {
             sku,
-            preco: converterEmBigDecimal(preco),
+            preco: converterEmBigDecimal(preco?.toString()),
             nome,
             descricao
         }
@@ -72,6 +87,10 @@ const CadastroProduto = () => {
         })
 
     };
+
+    useEffect(()=>{
+        buscar()
+    }, [])
 
     return (
         <Layout titulo="Cadastro de Produtos" mensagens={mensagens}>

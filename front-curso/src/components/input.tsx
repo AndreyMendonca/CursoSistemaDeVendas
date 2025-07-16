@@ -17,6 +17,7 @@ export const Input = ({nome, id, set,current = false, error, ...rest}: Props) =>
             <input
                 type="text"
                 id={id}
+                value={rest.value ?? ''}
                 onChange={
                     (e) => {
                         let value = e.target.value;
