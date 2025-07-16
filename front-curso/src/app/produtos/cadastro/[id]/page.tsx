@@ -8,6 +8,8 @@ import { Produto } from "@/types/produto";
 import { useState } from "react";
 import * as yup from 'yup'
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useParams } from "next/navigation";
 
 const validationSchema = yup.object().shape({
     sku: yup.string().trim().required("Campo é Obrigatório"),
@@ -24,6 +26,8 @@ interface FormError {
 }
 
 const CadastroProduto = () => {
+    const params = useParams();
+    const queryId  = params?.id;
     const service = useProdutoService;
     const [sku, setSku] = useState('');
     const [preco, setPreco] = useState('');
@@ -33,7 +37,7 @@ const CadastroProduto = () => {
     const [dataCadastro, setDataCadastro] = useState<string | undefined>('');
     const [mensagens, setMensagens] = useState<Array<Alert>>([]);
     const [errors, setErrors] = useState<FormError>({});
-
+    
     const submit = async () => {
         const produto: Produto = {
             sku,

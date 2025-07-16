@@ -3,9 +3,11 @@ import { Pencil, Trash } from "lucide-react";
 
 type Props = {
     produtos: Produto[];
+    onEdit: (produto: Produto) => void;
+    onDelete: (produto: Produto) => void;
 }
 
-export const TabelaProdutos = ({ produtos }: Props) => {
+export const TabelaProdutos = ({ produtos, onEdit, onDelete }: Props) => {
     return (
         <table className="table-auto w-full border border-gray-300 rounded-lg overflow-hidden shadow my-4">
             <thead>
@@ -26,8 +28,8 @@ export const TabelaProdutos = ({ produtos }: Props) => {
                             <td className="px-4 py-2">{p.nome}</td>
                             <td className="px-4 py-2">{p.preco}</td>
                             <td className="px-4 py-2  flex gap-4 justify-center">
-                                <button className="rounded-full p-2 bg-yellow-300 cursor-pointer"><Pencil className="size-4"/></button>
-                                <button className="rounded-full p-2 bg-red-500 cursor-pointer"><Trash className="size-4 text-white"/></button>
+                                <button onClick={() => onEdit(p)} className="rounded-full p-2 bg-yellow-300 cursor-pointer"><Pencil className="size-4"/></button>
+                                <button onClick={() => onDelete(p)} className="rounded-full p-2 bg-red-500 cursor-pointer"><Trash className="size-4 text-white"/></button>
                             </td>
                         </tr>
                     ))
