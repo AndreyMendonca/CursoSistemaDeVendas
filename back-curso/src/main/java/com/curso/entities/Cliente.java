@@ -2,11 +2,14 @@ package com.curso.entities;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,6 +29,7 @@ public class Cliente {
 	private String telefone;
 	private String email;
 	@Column(name = "data_cadastro",nullable = false)
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataCadastro;
 	
 	public Cliente() {}
@@ -51,6 +55,11 @@ public class Cliente {
 		this.endereco = endereco;
 		this.telefone = telefone;
 		this.email = email;
+	}
+	
+	@PrePersist
+	public void prePersist() {
+		setDataCadastro(LocalDate.now());
 	}
 
 	public Long getId() {
