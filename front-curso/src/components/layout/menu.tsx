@@ -1,4 +1,4 @@
-import { House, PackagePlus } from "lucide-react"
+import { House, PackagePlus, UserCog } from "lucide-react"
 import Link from "next/link"
 
 export const LayoutMenu = () => {
@@ -16,6 +16,12 @@ export const LayoutMenu = () => {
                     <Link href="/produtos" className="flex gap-2 p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-neutral-200 transition-colors">
                         <PackagePlus />
                         <p>Produtos</p>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/clientes" className="flex gap-2 p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-neutral-200 transition-colors">
+                        <UserCog />
+                        <p>Clientes</p>
                     </Link>
                 </li>
             </ul>
