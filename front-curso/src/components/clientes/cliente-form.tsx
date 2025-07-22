@@ -1,7 +1,7 @@
 import { Cliente } from "@/types/cliente"
 import { useFormik } from "formik";
 import { useParams } from "next/navigation";
-import { InputCliente } from "../input-cliente";
+import { InputCliente, InputCPF, InputData, InputTelefone } from "../input-cliente";
 import Link from "next/link";
 
 type Props = {
@@ -39,18 +39,18 @@ export const ClienteForm = ({ cliente, onSubmit }: Props) => {
                     </div>
                 }
 
-                <InputCliente id="nome" nome="Nome *" value={formik.values.nome} onChange={formik.handleChange} placeholder="Digite o nome do cliente" />
+                <InputCliente id="nome" nome="Nome *" value={formik.values.nome} onChange={formik.handleChange} placeholder="Digite o nome do cliente" name="nome" autoComplete="off"/>
 
                 <div className="grid grid-cols-2 gap-5">
-                    <InputCliente id="cpf" nome="CPF" value={formik.values.cpf} onChange={formik.handleChange} name="cpf" placeholder="Digite o CPF" />
-                    <InputCliente id="nascimento" nome="Data Nascimento" value={formik.values.nascimento} onChange={formik.handleChange} name="nascimento" placeholder="Digite a data de nascimento" />
+                    <InputCPF id="cpf" nome="CPF" value={formik.values.cpf} onChange={formik.handleChange} name="cpf" placeholder="Digite o CPF" />
+                    <InputData id="nascimento" nome="Data Nascimento" value={formik.values.nascimento} onChange={formik.handleChange} name="nascimento" placeholder="Digite a data de nascimento" />
                 </div>
 
-                <InputCliente id="endereco" nome="Endereço *" value={formik.values.endereco} onChange={formik.handleChange} placeholder="Digite o endereço" />
+                <InputCliente id="endereco" nome="Endereço *" value={formik.values.endereco} onChange={formik.handleChange} placeholder="Digite o endereço" name="endereco"/>
 
                 <div className="grid grid-cols-2 gap-5">
                     <InputCliente id="email" nome="Email" value={formik.values.email} onChange={formik.handleChange} name="email" placeholder="Digite o email" autoComplete="off"/>
-                    <InputCliente id="telefone" nome="Telefone" value={formik.values.telefone} onChange={formik.handleChange} name="telefone" placeholder="Digite o telefone" />
+                    <InputTelefone id="telefone" nome="Telefone" value={formik.values.telefone} onChange={formik.handleChange} name="telefone" placeholder="Digite o telefone" />
                 </div>
 
                 <div className="flex gap-5">
