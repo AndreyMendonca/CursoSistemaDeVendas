@@ -15,7 +15,6 @@ const ClientesPage = () => {
                         <p>Novo</p>
                         <CirclePlus />
                     </div>
-
                 </button>
             </Link>
         </Layout>

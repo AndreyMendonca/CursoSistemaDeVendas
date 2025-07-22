@@ -25,7 +25,8 @@ export const ClienteForm = ({ cliente, onSubmit }: Props) => {
     const queryId = params.id as string;
     const formik = useFormik<Cliente>({
         initialValues: { ...formSchema, ...cliente },
-        onSubmit
+        onSubmit,
+        enableReinitialize: true,
     })
 
     return (

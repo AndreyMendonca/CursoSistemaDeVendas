@@ -19,6 +19,7 @@ public class Cliente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable = false)
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate nascimento;
 	@Column(nullable = false)
 	private String cpf;
