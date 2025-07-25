@@ -1,4 +1,5 @@
 "use client"
+import { FormFind } from "@/components/clientes/form-find";
 import { Layout } from "@/components/layout/layout";
 import { Alert } from "@/components/message";
 import { CirclePlus } from "lucide-react";
@@ -17,6 +18,7 @@ const ClientesPage = () => {
                     </div>
                 </button>
             </Link>
+            <FormFind/>
         </Layout>
     )
 }
