@@ -1,6 +1,7 @@
 import { Cliente } from "@/types/cliente";
 import { api } from "./axios";
-import { AxiosResponse } from "axios";
+import { Axios, AxiosResponse } from "axios";
+import { Page } from "@/types/page";
 
 const URL: string = '/clientes';
 export const useClienteService = {
@@ -17,6 +18,17 @@ export const useClienteService = {
     },
     buscarPorId: async (id: string): Promise<Cliente> => {
         const response:AxiosResponse<Cliente> = await api.get(`${URL}/${id}`)
+        return response.data;
+    },
+    buscaPaginada: async (nome:string = '', cpf:string = '', page:number = 0, size:number = 10) : Promise<Page<Cliente>> => {
+        const response:AxiosResponse<Page<Cliente>> = await api.get(URL+"/find", {
+            params:{
+                nome,
+                cpf,
+                page,
+                size
+            }
+        });
         return response.data;
     }
 }

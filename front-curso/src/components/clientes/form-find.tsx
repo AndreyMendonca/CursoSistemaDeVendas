@@ -2,20 +2,20 @@ import { useFormik } from "formik"
 import { Input } from "../input"
 import { InputCliente, InputCPF } from "../input-cliente"
 
-type ConsultaClientsForm = {
+export type ConsultaClientsForm = {
     nome?: '',
     cpf?: ''
 }
 
-export const FormFind = () => {
+type Props = {
+    onFind: (filtro: ConsultaClientsForm) => void;
+}
 
-    const handleSubmit = (filtro: ConsultaClientsForm) => {
-        console.log(filtro)
-    }
+export const FormFind = ({onFind}: Props) => {
 
     const formik = useFormik<ConsultaClientsForm>({
         initialValues: { nome: "", cpf: "" },
-        onSubmit: handleSubmit,
+        onSubmit: values => onFind(values),
     })
 
 
