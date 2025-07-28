@@ -22,7 +22,7 @@ export const FormFind = ({onFind}: Props) => {
     return (
         <form onSubmit={formik.handleSubmit} className="flex flex-col gap-2 my-2">
             <div className="grid grid-cols-2 gap-5">
-                <InputCliente id="nome" nome="Nome *" value={formik.values.nome} onChange={formik.handleChange} placeholder="Buscar cliente por nome" name="nome" autoComplete="off" />
+                <InputCliente id="nome" nome="Nome" value={formik.values.nome} onChange={formik.handleChange} placeholder="Buscar cliente por nome" name="nome" autoComplete="off" />
                 <InputCPF id="cpf" nome="CPF" value={formik.values.cpf} onChange={formik.handleChange} name="cpf" placeholder="Buscar cliente por CPF" autoComplete="off"/>
             </div>
             <div>

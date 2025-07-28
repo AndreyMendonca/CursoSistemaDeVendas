@@ -21,7 +21,7 @@ const ClientesPage = () => {
 
     const handleSubmit = (filtro: ConsultaClientsForm) => {
         setFiltro(filtro);
-        handlePage(filtro, 0, 5);
+        handlePage(filtro, 0, 10);
     };
 
     const handlePage = (filtro: ConsultaClientsForm, first: number, rows: number) => {
